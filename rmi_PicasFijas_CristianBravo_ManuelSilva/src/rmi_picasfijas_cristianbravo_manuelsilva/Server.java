@@ -19,22 +19,7 @@ public class Server {
              public int suma(int num1, int num2) throws RemoteException {
                  return (num1+num2);
              }
-
-             @Override
-             public int resta(int num1, int num2) throws RemoteException {
-                 return (num1-num2);
-             }
-
-             @Override
-             public int multiplicacion(int num1, int num2) throws RemoteException {
-                 return (num1*num2);
-             }
-
-             @Override
-             public float division(int num1, int num2) throws RemoteException { 
-                 float res = (float) num1/num2;
-                return res;
-             }
+             
         }, 0);
         System.out.println("Servidor iniciado...");
         Registry registry = LocateRegistry.createRegistry(Registry.REGISTRY_PORT);
