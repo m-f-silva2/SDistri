@@ -14,14 +14,24 @@ public class Client {
         Registry registry = LocateRegistry.getRegistry();
         IPicasFijas calculadora = (IPicasFijas) registry.lookup("RMI-PicasFijas");
         Scanner teclado = new Scanner(System.in);
-        int num1,num2,opera=0;
+    
         
-        int  Clave = 0;
+        int [] Clave=new int[5];
         Random rnd = new Random();
-        for(int i = 1; i<=4; i++)
-            Clave=rnd.nextInt(9)+1;
+        for(int i = 1; i<=4; i++){
+            
+        
+        Clave[i]=rnd.nextInt(9)+1;
+        System.out.print(Clave[i]);
+        
+        }
+        
+        
+        
+            
+        
          System.out.println("*******  Juego de Picas Y Fijas  *******");
-        System.out.println("El numero clave ha sido generado "+Clave);
+        System.out.println("El numero clave ha sido generado ");
         
         
     }
