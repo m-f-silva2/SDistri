@@ -1,6 +1,5 @@
 package rmi_picasfijas_cristianbravo_manuelsilva;
 
-import com.sun.xml.internal.bind.v2.model.util.ArrayInfoUtil;
 import java.rmi.AlreadyBoundException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -14,15 +13,20 @@ import java.util.Random;
  */
 public class Server {
 
+    
     public static void main(String[] args) throws RemoteException, AlreadyBoundException {
+        int numrecib;
         Remote stub = UnicastRemoteObject.exportObject(new IPicasFijas() {
+           
 
             @Override
-            public int picasFijas(int num1) throws RemoteException {
-
+            public String respuesta(int num) throws RemoteException {
+               
+                
                 int contPicas=0,contFijas=0;
                 int numAux=0,cont=4;
                 int[] claveNum = new int[5];
+                int numguardado=num;
                 Random rnd = new Random();
                 
                 
@@ -35,8 +39,8 @@ public class Server {
                 int[] numJug = new int[5];
                 while (cont != 0){
                     //Obtener ultimo valor
-                    numAux = num1 % 10;
-                    num1 = num1/10;
+                    numAux = num % 10;
+                    num = num/10;
                     numJug[cont] = numAux;
                     cont--;
                 } 
@@ -54,12 +58,17 @@ public class Server {
                          }
                     }
                 }
-                return (num1);
-            }
-
-            @Override
-            public String respuesta(String resp) throws RemoteException {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                
+                String var=" Numero clave: ";
+                
+                  for (int i = 1; i <= 4; i++) {
+                    var+=""+claveNum[i];
+                }
+                  var+=" Numero Jugado: "+numguardado+""+" Fijas: "+contFijas+" Picas: "+contPicas;
+                
+                
+                  return var;
+                
             }
 
         }, 0);

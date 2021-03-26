@@ -20,6 +20,7 @@ public class Client {
         DataInputStream in = null;
         Registry registry = LocateRegistry.getRegistry();
         IPicasFijas dato = (IPicasFijas) registry.lookup("RMI-PicasFijas");  
+        
         Scanner teclado = new Scanner(System.in);
         int num = 0;
         
@@ -27,8 +28,7 @@ public class Client {
         System.out.println("Ingrese el Numero de 4 cifras:");
         num = teclado.nextInt();
         //Enviar valor ingresado
-        System.out.println(""+dato.picasFijas(num));
-        
+        System.out.println(""+dato.respuesta(num));
         //Imprimir resultados
       
         System.out.println("*******  Juego de Picas Y Fijas  *******");
