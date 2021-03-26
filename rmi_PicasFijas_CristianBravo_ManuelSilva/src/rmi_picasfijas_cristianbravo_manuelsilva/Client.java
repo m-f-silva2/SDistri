@@ -3,6 +3,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -15,6 +16,12 @@ public class Client {
         Scanner teclado = new Scanner(System.in);
         int num1,num2,opera=0;
         
+        int  Clave = 0;
+        Random rnd = new Random();
+        for(int i = 1; i<=4; i++)
+            Clave=rnd.nextInt(9)+1;
+         System.out.println("*******  Juego de Picas Y Fijas  *******");
+        System.out.println("El numero clave ha sido generado "+Clave);
         System.out.println("*******  Calculadora Basica  *******");
         System.out.println("Escriba el primer numero: ");
         num1 = teclado.nextInt();
