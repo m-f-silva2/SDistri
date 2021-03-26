@@ -6,5 +6,6 @@ import java.rmi.RemoteException;
  * RMI calculadora. Cristian Bravo - Manuel Silva
  */
 public interface IPicasFijas extends Remote {
-    int suma(int num1) throws RemoteException;
+    int picasFijas(int num1) throws RemoteException;
+    String respuesta(String resp) throws RemoteException;
 }

@@ -27,7 +27,7 @@ public class Client {
         System.out.println("Ingrese el Numero de 4 cifras:");
         num = teclado.nextInt();
         //Enviar valor ingresado
-        System.out.println(""+dato.suma(num));
+        System.out.println(""+dato.picasFijas(num));
         
         //Imprimir resultados
       
