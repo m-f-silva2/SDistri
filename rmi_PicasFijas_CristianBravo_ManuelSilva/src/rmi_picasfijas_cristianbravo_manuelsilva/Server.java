@@ -13,7 +13,7 @@ import java.rmi.server.UnicastRemoteObject;
 public class Server {
 
     public static void main(String[] args) throws RemoteException, AlreadyBoundException {
-         Remote stub = UnicastRemoteObject.exportObject(new ICalculadora() {
+         Remote stub = UnicastRemoteObject.exportObject(new IPicasFijas() {
 
              @Override
              public int suma(int num1, int num2) throws RemoteException {

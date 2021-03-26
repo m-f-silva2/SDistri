@@ -12,7 +12,7 @@ import java.util.Scanner;
 public class Client {
     public static void main(String[] args) throws RemoteException, NotBoundException {
         Registry registry = LocateRegistry.getRegistry();
-        ICalculadora calculadora = (ICalculadora) registry.lookup("RMI-Calculadora");
+        IPicasFijas calculadora = (IPicasFijas) registry.lookup("RMI-PicasFijas");
         Scanner teclado = new Scanner(System.in);
         int num1,num2,opera=0;
         
