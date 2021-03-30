@@ -13,64 +13,88 @@ import java.util.Random;
  */
 public class Server {
 
-    
     public static void main(String[] args) throws RemoteException, AlreadyBoundException {
-        int numrecib;
         Remote stub = UnicastRemoteObject.exportObject(new IPicasFijas() {
-           
-
             @Override
-            public String respuesta(int num) throws RemoteException {
-               
-                
-                int contPicas=0,contFijas=0;
-                int numAux=0,cont=4;
-                int[] claveNum = new int[5];
-                int numguardado=num;
+            public int[] generarNumero() throws RemoteException {
+                int[] claveNum = new int[4];
                 Random rnd = new Random();
                 
-                
-                for (int i = 1; i <= 4; i++) {
+                //Generar numero random
+                for (int i = 0; i < 4; i++) {
                     claveNum[i] = rnd.nextInt(9) + 1;
-                    System.out.print(claveNum[i]);
                 }
                 
-                //Calcular suma de multiplicaciones
-                int[] numJug = new int[5];
-                while (cont != 0){
-                    //Obtener ultimo valor
+                //Validar digitos repetidos
+                for (int c=0; c<claveNum.length; c++){
+                    for (int j=0; j<claveNum.length; j++){
+                        if (claveNum[c]==claveNum[j] && c!=j){
+                            //validar digitos de 1 a 9, si es 9 se inicia a 1.
+                            claveNum[j] = (claveNum[j]==9)?claveNum[j]=1:claveNum[j]+1;
+                            c = j = 0;//Se reinicia la validacion
+                        }
+                    }
+                }
+                return claveNum;
+            }
+            @Override
+            public boolean validarNumero(int num) throws RemoteException {
+                boolean valid = true;
+                int[] numJug = new int[4];
+                int numAux=0;
+                
+                //Guardar digitos en array
+                for (int c = 0; c<4;c++){
                     numAux = num % 10;
                     num = num/10;
-                    numJug[cont] = numAux;
-                    cont--;
-                } 
+                    numJug[c] = numAux;                 
+                }
                 
+                //Validar longitud del numero
+                if(4 == numJug.length){
+                    //validar si hay digitos repetido
+                    for (int c=0; c<numJug.length; c++){
+                        for (int j=0; j<numJug.length; j++){
+                            if (numJug[c]==numJug[j] && c!=j){
+                                c = j = numJug.length;//terminar ciclo for
+                                valid = false;//numero no es valido.
+                            }
+                        }
+                    }
+                }
+                return valid;//retorna true: numero valido, false: numero no valido.
+            }
+            @Override
+            public int[] respuesta(int num, int[] claveNum) throws RemoteException {
+                int contPicas=0,contFijas=0;
+                int[] numJug = new int[4];
+                int[] picasFijas = new int[2];
+                int numAux=0;
                 
-                for (int i=1; i<claveNum.length; i++){
-                    for (int j=1; j<numJug.length; j++){
-                         if (claveNum[i]==numJug[j]){
-                             //Picas: Solo el valor coincide
-                             contPicas++;
-                         }
-                         if(claveNum[i]==numJug[j] && i == j){
+                //Guardar digitos en array
+                for (int c = 3; c > -1;c--){
+                    numAux = num % 10;
+                    num = num/10;
+                    numJug[c] = numAux;                 
+                }
+                
+                //validar cada digito del numero clave con el de numero jugado
+                for (int i=0; i < claveNum.length; i++){
+                    for (int j=0; j < numJug.length; j++){
+                         if (claveNum[i] == numJug[j] && i == j){
                              //Fijas: mismo valor y misma posicion
                              contFijas++;
                          }
+                         if(claveNum[i] == numJug[j] && i != j){
+                             //Picas: Solo el valor coincide
+                             contPicas++;
+                         }
                     }
                 }
-                
-                String var=" Numero clave: ";
-                
-                  for (int i = 1; i <= 4; i++) {
-                    var+=""+claveNum[i];
-                }
-                  var+=" Numero Jugado: "+numguardado+""+" Fijas: "+contFijas+" Picas: "+contPicas;
-                
-                
-                  return var;
-                
+                picasFijas[0]=contPicas;
+                picasFijas[1]=contFijas;
+                return picasFijas;
             }
-
         }, 0);
         System.out.println("Servidor iniciado...");
         Registry registry = LocateRegistry.createRegistry(Registry.REGISTRY_PORT);

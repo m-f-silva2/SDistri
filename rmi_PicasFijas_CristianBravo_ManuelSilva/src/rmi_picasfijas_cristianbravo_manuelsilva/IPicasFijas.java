@@ -7,5 +7,7 @@ import java.rmi.RemoteException;
  */
 public interface IPicasFijas extends Remote {
    
-    String respuesta(int num ) throws RemoteException;
+    int[] generarNumero() throws RemoteException;
+    boolean validarNumero(int num) throws RemoteException;
+    int[] respuesta(int num , int[] clave) throws RemoteException;
 }
