@@ -35,7 +35,7 @@ public class Server {
                         }
                     }
                 }
-                return claveNum;
+                return claveNum;  //retornar numero sin digitos repetidos
             }
             @Override
             public boolean validarNumero(int num) throws RemoteException {
@@ -43,7 +43,7 @@ public class Server {
                 int[] numJug = new int[4];
                 int numAux=0;
                 
-                //Guardar digitos en array
+                //Guardar numero jugado en array
                 for (int c = 0; c<4;c++){
                     numAux = num % 10;
                     num = num/10;
@@ -52,11 +52,11 @@ public class Server {
                 
                 //Validar longitud del numero
                 if(4 == numJug.length){
-                    //validar si hay digitos repetido
+                    //validar digitos repetidos
                     for (int c=0; c<numJug.length; c++){
                         for (int j=0; j<numJug.length; j++){
                             if (numJug[c]==numJug[j] && c!=j){
-                                c = j = numJug.length;//terminar ciclo for
+                                c = j = numJug.length;//finalizar ciclo for
                                 valid = false;//numero no es valido.
                             }
                         }
@@ -91,9 +91,10 @@ public class Server {
                          }
                     }
                 }
+                //Guardar valores de picas y fijas
                 picasFijas[0]=contPicas;
                 picasFijas[1]=contFijas;
-                return picasFijas;
+                return picasFijas;  //retornar picas y fijas
             }
         }, 0);
         System.out.println("Servidor iniciado...");

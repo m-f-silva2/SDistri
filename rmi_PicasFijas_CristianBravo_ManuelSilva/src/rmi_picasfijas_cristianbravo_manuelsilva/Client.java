@@ -15,16 +15,16 @@ public class Client {
 
     public static void main(String[] args) throws RemoteException, NotBoundException {
         DataOutputStream out = null;  //flujo de salida
-        DataInputStream in = null;
+        DataInputStream in = null;  //flujo de entrada
         Registry registry = LocateRegistry.getRegistry();
         IPicasFijas dato = (IPicasFijas) registry.lookup("RMI-PicasFijas");  
         
-        Scanner teclado = new Scanner(System.in);
-        int num = 0;
-        boolean numero;
-        int[] claveNum = new int[4];
-        int[] picasFijas = new int[2];
-        claveNum = dato.generarNumero();
+        Scanner teclado = new Scanner(System.in);   //Entrada de datos
+        int num = 0;    //numero jugado
+        boolean validNum; //validar digitos numero jugado
+        int[] claveNum = new int[4];  //numero secreto
+        int[] picasFijas = new int[2];  //numero de picas y fijas
+        claveNum = dato.generarNumero();  //generar numero
         
         System.out.println("*******  Juego de Picas Y Fijas  *******");
         for(int i=1; i<=3; i++){
@@ -34,11 +34,11 @@ public class Client {
             num = teclado.nextInt();
             
             //Validar numero digitado
-            numero = dato.validarNumero(num);
+            validNum = dato.validarNumero(num);
             
-            //Si el numero validado es correcto
-            if(numero){
-                //Enviar valor ingresado
+            //Si el numero digitado es correcto
+            if(validNum){
+                //numero de picas y fijas
                 picasFijas = dato.respuesta(num, claveNum);
             }else{
                 System.out.println("Numero no valido");
@@ -47,11 +47,12 @@ public class Client {
             //Validar si el numero es igual al de la clave
             if(picasFijas[1] == 4){
                 System.out.println("Felicitaciones ganó.");
-                i = 3;
+                i = 3;//finalizar juego
             }else{
                 System.out.println("Picas: "+picasFijas[0]+" Fijas: "+picasFijas[1]);
             }
         }
+        //Imprimir numero clave
         System.out.print("El numero clave es: ");
         for (int i = 0; i < 4; i++) {
             System.out.print(claveNum[i]);
