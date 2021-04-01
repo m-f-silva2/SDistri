@@ -47,16 +47,16 @@ public class Server {
                 for (int c = 0; c<4;c++){
                     numAux = num % 10;
                     num = num/10;
-                    numJug[c] = numAux;                 
+                    numJug[c] = numAux;
                 }
                 
                 //Validar longitud del numero
                 if(4 == numJug.length){
-                    //validar digitos repetidos
+                    //Validar digitos repetidos
                     for (int c=0; c<numJug.length; c++){
                         for (int j=0; j<numJug.length; j++){
                             if (numJug[c]==numJug[j] && c!=j){
-                                c = j = numJug.length;//finalizar ciclo for
+                                c = j = numJug.length;//finalizar ciclos for
                                 valid = false;//numero no es valido.
                             }
                         }
@@ -75,10 +75,10 @@ public class Server {
                 for (int c = 3; c > -1;c--){
                     numAux = num % 10;
                     num = num/10;
-                    numJug[c] = numAux;                 
+                    numJug[c] = numAux;
                 }
                 
-                //validar cada digito del numero clave con el de numero jugado
+                //Validar cada digito del numero clave con el de numero jugado
                 for (int i=0; i < claveNum.length; i++){
                     for (int j=0; j < numJug.length; j++){
                          if (claveNum[i] == numJug[j] && i == j){

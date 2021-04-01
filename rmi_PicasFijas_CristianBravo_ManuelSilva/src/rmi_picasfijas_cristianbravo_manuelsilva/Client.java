@@ -23,13 +23,13 @@ public class Client {
         int num = 0;    //numero jugado
         boolean validNum; //validar digitos numero jugado
         int[] claveNum = new int[4];  //numero secreto
-        int[] picasFijas = new int[2];  //numero de picas y fijas
-        claveNum = dato.generarNumero();  //generar numero
+        int[] picasFijas = new int[2];  //cantidad de picas y fijas
+        claveNum = dato.generarNumero();  //generar numero secreto
         
         System.out.println("*******  Juego de Picas Y Fijas  *******");
         for(int i=1; i<=3; i++){
             System.out.println("___________  Intento "+i+" de 3  ___________________");
-            //Ingresar valor
+            //Ingresar numero jugado
             System.out.println("Ingrese un numero de 4 cifras sin repetir digitos:");
             num = teclado.nextInt();
             
@@ -38,22 +38,22 @@ public class Client {
             
             //Si el numero digitado es correcto
             if(validNum){
-                //numero de picas y fijas
+                //Cantidad de picas y fijas
                 picasFijas = dato.respuesta(num, claveNum);
             }else{
                 System.out.println("Numero no valido");
             }
             
-            //Validar si el numero es igual al de la clave
+            //Validar si el numero jugado es igual al numero secreto
             if(picasFijas[1] == 4){
-                System.out.println("Felicitaciones ganó.");
+                System.out.println("¡Felicitaciones ganó!");
                 i = 3;//finalizar juego
             }else{
                 System.out.println("Picas: "+picasFijas[0]+" Fijas: "+picasFijas[1]);
             }
         }
-        //Imprimir numero clave
-        System.out.print("El numero clave es: ");
+        //Imprimir numero clave o secreto
+        System.out.print("El numero clave o secreto es: ");
         for (int i = 0; i < 4; i++) {
             System.out.print(claveNum[i]);
         }
